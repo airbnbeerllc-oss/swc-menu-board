@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:keepScreenOn="true">
+
+    <!-- The web page goes in here -->
+    <FrameLayout
+        android:id="@+id/web_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- "Loading menu…" / "Reconnecting…" screen, shown on top of the page -->
+    <LinearLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/waiting_screen_background"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/overlay_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading_text"
+            android:textColor="@color/waiting_screen_text"
+            android:textSize="40sp" />
+    </LinearLayout>
+
+</FrameLayout>

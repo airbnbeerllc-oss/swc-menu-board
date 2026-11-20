@@ -1,0 +1,43 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Each GitHub build gets a higher version number, so the Fire TV accepts it as an update.
+def buildNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1').toInteger()
+
+android {
+    namespace 'com.southportsmoothies.menuboard'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.southportsmoothies.menuboard'
+        minSdk 22          // Fire OS 5 and newer
+        targetSdk 34
+        versionCode buildNumber
+        versionName "1.0.${buildNumber}"
+    }
+
+    // The signing key is created automatically by the first GitHub build
+    // (see .github/workflows/build-apk.yml). Keeping the same key is what
+    // lets you install updates without uninstalling first.
+    signingConfigs {
+        release {
+            storeFile rootProject.file('signing/menuboard.keystore')
+            storePassword 'swcmenuboard'
+            keyAlias 'menuboard'
+            keyPassword 'swcmenuboard'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}

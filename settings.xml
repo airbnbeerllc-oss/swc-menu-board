@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ================================================================
+   SWC MENU BOARD SETTINGS  -  this is the ONLY file you need to edit
+  ================================================================
+   After you change something here and click "Commit changes" on
+   GitHub, a new APK is built for you automatically (about 5 min).
+   Then update the Fire TV (see the guide, "Updating the app").
+
+   Tip: if a web address ever contains an "&" character,
+   type it as  &amp;  instead, or the build will fail.
+-->
+<resources>
+
+    <!-- The web page the TV shows -->
+    <string name="menu_url">https://southportsmoothies.com/cafe-tv</string>
+
+    <!-- Reload the page this often (minutes) so menu changes show up -->
+    <integer name="refresh_minutes">60</integer>
+
+    <!-- If the page can't load, try again this often (seconds) -->
+    <integer name="retry_seconds">30</integer>
+
+    <!-- If the app gets closed (not by double-Back), reopen it after this many minutes -->
+    <integer name="watchdog_minutes">2</integer>
+
+    <!-- Lay the page out as a 1920-pixel-wide screen (true = on, false = off) -->
+    <bool name="force_page_width">true</bool>
+    <integer name="page_width">1920</integer>
+
+    <!-- Ask websites for their desktop/TV layout instead of the phone layout -->
+    <bool name="desktop_mode">true</bool>
+
+    <!-- Words and colors on the waiting screen -->
+    <string name="loading_text">Loading menu…</string>
+    <string name="reconnecting_text">Reconnecting…</string>
+    <color name="waiting_screen_background">#000000</color>
+    <color name="waiting_screen_text">#FFFFFF</color>
+
+    <!-- App name on the Fire TV and the exit message -->
+    <string name="app_name">SWC Menu Board</string>
+    <string name="exit_hint">Press Back again to close the menu board</string>
+
+</resources>

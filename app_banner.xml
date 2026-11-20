@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Wide TV banner shown in the Fire TV app list -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+    <path android:fillColor="#2E7D32" android:pathData="M0,0 H320 V180 H0 Z" />
+    <group android:translateX="106" android:translateY="36" android:scaleX="1" android:scaleY="1">
+        <path android:fillColor="#FFFFFF" android:pathData="M58,34 L66,14 L70,15.5 L62.5,34 Z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M30,34 H78 V42 H30 Z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M34,44 H74 L68,90 H40 Z" />
+        <path android:fillColor="#A5D6A7" android:pathData="M36.6,58 H71.4 L70.1,68 H37.9 Z" />
+    </group>
+</vector>
