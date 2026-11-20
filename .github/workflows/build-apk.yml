@@ -43,4 +43,46 @@ jobs:
               -storepass swcmenuboard -keypass swcmenuboard \
               -dname "CN=SWC Menu Board, O=Southport Wellness Cafe, C=US"
             git config user.name "github-actions[bot]"
-            git config user.email
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add signing/menuboard.keystore
+            git commit -m "Add app signing key (created automatically)"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Sort uploaded files into the Android folder layout
+        run: |
+          J=app/src/main/java/com/southportsmoothies/menuboard
+          R=app/src/main/res
+          mkdir -p "$J" "$R/values" "$R/layout" "$R/drawable"
+          for f in *.java; do if [ -f "$f" ]; then mv "$f" "$J/"; fi; done
+          if [ -f AndroidManifest.xml ]; then mv AndroidManifest.xml app/src/main/; fi
+          if [ -f settings.xml ]; then mv settings.xml "$R/values/"; fi
+          if [ -f activity_main.xml ]; then mv activity_main.xml "$R/layout/"; fi
+          for f in app_icon.xml app_banner.xml; do if [ -f "$f" ]; then mv "$f" "$R/drawable/"; fi; done
+          for f in build*.gradle; do
+            if [ ! -f "$f" ]; then continue; fi
+            if grep -q "apply false" "$f"; then
+              if [ "$f" != "build.gradle" ]; then mv "$f" build.gradle.root; fi
+            else
+              mv "$f" app/build.gradle
+            fi
+          done
+          if [ -f build.gradle.root ]; then mv build.gradle.root build.gradle; fi
+          echo "Files used for the build:"
+          find . -path ./.git -prune -o -type f -print | sort
+
+      - name: Build the APK
+        run: gradle assembleRelease --no-daemon --stacktrace
+
+      - name: Name the APK
+        run: cp app/build/outputs/apk/release/app-release.apk swc-menu-board.apk
+
+      - name: Publish the APK as a download
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: SWC Menu Board build ${{ github.run_number }}
+          body: Install link for the Fire TV never changes - see the setup guide.
+          files: swc-menu-board.apk
+          make_latest: true
